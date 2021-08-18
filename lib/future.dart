@@ -28,12 +28,11 @@ class _FuturePageState extends State<FuturePage> {
             ElevatedButton(
               child: Text('GO!'),
               onPressed: () {
-                count();
-                /*getNumber().then((value) {
+                getNumber().then((value) {
                   setState(() {
                     result = value.toString();
                   });
-                });*/
+                });
               },
             ),
             Spacer(),
@@ -47,32 +46,6 @@ class _FuturePageState extends State<FuturePage> {
     );
   }
 
-  Future<int> returnOneAsync() async {
-    await Future<int>.delayed(const Duration(seconds: 3), () => 1);
-    return 1;
-  }
-
-  Future<int> returnTwoAsync() async {
-    await Future<int>.delayed(const Duration(seconds: 3), () => 2);
-    return 2;
-  }
-
-  Future<int> returnThreeAsync() async {
-    return await Future<int>.delayed(const Duration(seconds: 3), () => 1);
-    //return 3;
-  }
-
-  Future count() async {
-    int total = 0;
-    total = await returnOneAsync();
-    total += await returnTwoAsync();
-    total += await returnThreeAsync();
-
-    setState(() {
-      result = total.toString();
-    });
-  }
-/*
   Future<dynamic> getNumber() {
     completer = Completer<int>();
     calculate();
@@ -82,5 +55,5 @@ class _FuturePageState extends State<FuturePage> {
   calculate() async {
     await new Future.delayed(
         const Duration(seconds: 5), () => completer.complete(42));
-  }*/
+  }
 }
