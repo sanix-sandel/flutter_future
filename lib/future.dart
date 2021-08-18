@@ -28,23 +28,7 @@ class _FuturePageState extends State<FuturePage> {
             ElevatedButton(
               child: Text('GO!'),
               onPressed: () {
-                result = '';
-                setState(() {
-                  result = result;
-                });
-
-                getData().then((value) {
-                  result = value.body.toString().substring(0, 800);
-                  setState(() {
-                    result = result;
-                  });
-                }).catchError((_) {
-                  result = 'An error occurred';
-                  setState(() {
-                    result = result;
-                  });
-                });
-                //count();
+                count();
                 /*getNumber().then((value) {
                   setState(() {
                     result = value.toString();
@@ -63,14 +47,6 @@ class _FuturePageState extends State<FuturePage> {
     );
   }
 
-  Future<Response> getData() async {
-    final String authority = 'www.googleapis.com';
-    final String path = '/books/v1/volumes/junbDwAAQBAJ';
-    Uri url = Uri.https(authority, path);
-
-    return http.get(url);
-  }
-/*
   Future<int> returnOneAsync() async {
     await Future<int>.delayed(const Duration(seconds: 3), () => 1);
     return 1;
@@ -96,7 +72,7 @@ class _FuturePageState extends State<FuturePage> {
       result = total.toString();
     });
   }
-
+/*
   Future<dynamic> getNumber() {
     completer = Completer<int>();
     calculate();
