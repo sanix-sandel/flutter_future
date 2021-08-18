@@ -28,7 +28,7 @@ class _FuturePageState extends State<FuturePage> {
             ElevatedButton(
               child: Text('GO!'),
               onPressed: () {
-                returnFG();
+                handleError();
               },
             ),
             Spacer(),
@@ -77,5 +77,21 @@ class _FuturePageState extends State<FuturePage> {
         result = total.toString();
       });
     });
+  }
+
+  Future returnError() {
+    throw ('Something terrible happened!');
+  }
+
+  Future handleError() async {
+    try {
+      await returnError();
+    } catch (error) {
+      setState(() {
+        result = error.toString();
+      });
+    } finally {
+      print('Complete');
+    }
   }
 }
