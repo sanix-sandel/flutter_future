@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_future/future.dart';
 import 'package:flutter_future/geolocation.dart';
+import 'package:flutter_future/navigation_dialog.dart';
 import 'package:flutter_future/navigation_first.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: NavigationFirst(),
+      home: NavigationDialog(),
     );
   }
 }
