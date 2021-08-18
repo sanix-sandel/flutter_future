@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -28,11 +28,7 @@ class _FuturePageState extends State<FuturePage> {
             ElevatedButton(
               child: Text('GO!'),
               onPressed: () {
-                getNumber().then((value) {
-                  setState(() {
-                    result = value.toString();
-                  });
-                });
+                returnFG();
               },
             ),
             Spacer(),
@@ -46,14 +42,40 @@ class _FuturePageState extends State<FuturePage> {
     );
   }
 
-  Future<dynamic> getNumber() {
-    completer = Completer<int>();
-    calculate();
-    return completer.future;
-  }
-
   calculate() async {
     await new Future.delayed(
         const Duration(seconds: 5), () => completer.complete(42));
+  }
+
+  Future<int> returnOneAsync() async {
+    await Future<int>.delayed(const Duration(seconds: 3), () => 1);
+    return 1;
+  }
+
+  Future<int> returnTwoAsync() async {
+    await Future<int>.delayed(const Duration(seconds: 3), () => 2);
+    return 2;
+  }
+
+  Future<int> returnThreeAsync() async {
+    return await Future<int>.delayed(const Duration(seconds: 3), () => 1);
+    //return 3;
+  }
+
+  void returnFG() {
+    FutureGroup<int> futureGroup = FutureGroup<int>();
+    futureGroup.add(returnOneAsync());
+    futureGroup.add(returnTwoAsync());
+    futureGroup.add(returnThreeAsync());
+    futureGroup.close();
+    futureGroup.future.then((List<int> value) {
+      int total = 0;
+      value.forEach((element) {
+        total += element;
+      });
+      setState(() {
+        result = total.toString();
+      });
+    });
   }
 }
